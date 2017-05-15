@@ -13,7 +13,7 @@ class LoanViewSet(viewsets.ModelViewSet):
     """
     queryset = Loan.objects.all()
     serializer_class = LoanSerializer
-    permission_classes = (IsOwner, permissions.IsAdminUser)
+    permission_classes = ([IsOwner, permissions.IsAdminUser,])
 
     #@detail_route(renderer_classes=[renderers.StaticHTMLRenderer])
     #def highlight(self, request, *args, **kwargs):
@@ -30,4 +30,4 @@ class UserViewSet(viewsets.ModelViewSet):
     """
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = (permissions.IsAdminUser)
+    permission_classes = ([permissions.IsAdminUser,])
