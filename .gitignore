@@ -24,5 +24,6 @@ obj
 RabbitLoans/settings/dev.py
 **/*_old.py
 **/__pycache__
+**/*.pyc
 db.sqlite3
 readme.mht

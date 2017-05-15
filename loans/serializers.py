@@ -23,9 +23,15 @@ class LoanSerializer(serializers.HyperlinkedModelSerializer):
         )
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
+    #profile = serializers.HyperlinkedRelatedField(view_name='userprofile-detail', read_only=True)
+    first_name = serializers.CharField(source='profile.first_name')
+    last_name = serializers.CharField(source='profile.last_name')
+    gender = serializers.CharField(source='profile.gender')
+    dob = serializers.DateField(source='profile.dob')
     loans = serializers.HyperlinkedRelatedField(many=True, view_name='loan-detail', read_only=True)
 
     class Meta:
         model = User
-        fields = ('url', 'id', 'username', 'loans')
+        fields = ('url', 'id', 'email', 'is_staff', 'first_name', 'last_name', 'gender', 'dob', 'loans')
+
 

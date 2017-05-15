@@ -77,6 +77,7 @@
     <Content Include="RabbitLoans\settings\__pycache__\__init__.cpython-35.pyc" />
     <Content Include="requirements.txt" />
     <Content Include="db.sqlite3" />
+    <Content Include="runtime.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="readme.mht">

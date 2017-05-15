@@ -1,6 +1,6 @@
 from rest_framework.decorators import detail_route
 from rest_framework import viewsets, permissions
-from .models import Loan
+from .models import Loan, UserProfile
 from .serializers import LoanSerializer, UserSerializer
 from .permissions import IsOwner
 from django.contrib.auth.models import User
