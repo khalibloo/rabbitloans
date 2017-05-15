@@ -67,9 +67,9 @@ X_FRAME_OPTIONS = 'DENY'
 # MAIL_USE_TLS = True
 
 
-EMAIL_BACKEND = "sgbackend.SendGridBackend"
-SENDGRID_API_KEY = os.environ["SENDGRID_API_KEY"]
+#EMAIL_BACKEND = "sgbackend.SendGridBackend"
+#SENDGRID_API_KEY = os.environ["SENDGRID_API_KEY"]
     
-DEFAULT_FROMEMAIL = 'studycalabash@gmail.com' #for regular emails sent to users
-SERVER_EMAIL = 'root@localhost' #for server errors sent to admin
+#DEFAULT_FROMEMAIL = 'studycalabash@gmail.com' #for regular emails sent to users
+#SERVER_EMAIL = 'root@localhost' #for server errors sent to admin
 

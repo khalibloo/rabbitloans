@@ -21,6 +21,7 @@ env
 etc
 static
 obj
+RabbitLoans/settings/dev.py
 **/*_old.py
 **/__pycache__
 db.sqlite3
