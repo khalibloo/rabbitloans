@@ -19,6 +19,7 @@ yarn-error.log*
 build
 env
 etc
+static
 obj
 **/*_old.py
 **/__pycache__

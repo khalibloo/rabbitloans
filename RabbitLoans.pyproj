@@ -71,6 +71,7 @@
     <Content Include="etc\key.txt" />
     <Content Include="etc\sendgrid_khali_key.txt" />
     <Content Include="loans\templates\index.html" />
+    <Content Include="Procfile" />
     <Content Include="RabbitLoans\settings\__pycache__\base.cpython-35.pyc" />
     <Content Include="RabbitLoans\settings\__pycache__\dev.cpython-35.pyc" />
     <Content Include="RabbitLoans\settings\__pycache__\__init__.cpython-35.pyc" />

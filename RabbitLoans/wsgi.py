@@ -17,6 +17,14 @@ import os
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "RabbitLoans.settings")
 
+
+from django.core.wsgi import get_wsgi_application
+from whitenoise.django import DjangoWhiteNoise
+
+application = get_wsgi_application()
+application = DjangoWhiteNoise(application)
+
+
 # This application object is used by any WSGI server configured to use this
 # file. This includes Django's development server, if the WSGI_APPLICATION
 # setting points here.
