@@ -1,0 +1,1 @@
+web: gunicorn RabbitLoans.wsgi --log-file -
