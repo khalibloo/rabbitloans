@@ -60,7 +60,7 @@ MIDDLEWARE_CLASSES = [
 ]
 
 
-ROOT_URLCONF = 'DjangoWebAPI.urls'
+ROOT_URLCONF = 'RabbitLoans.urls'
 
 TEMPLATES = [
     {

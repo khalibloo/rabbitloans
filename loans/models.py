@@ -13,7 +13,7 @@ class Loan (models.Model):
         ('N', 'Not repaid'),
         ('D', 'Defaulted'),
     )
-    customer = models.ForeignKey(User, on_delete=models.CASCADE)
+    customer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='loans')
     amount = models.FloatField()
     duration = models.IntegerField()
     interest_rate = models.FloatField()
@@ -27,3 +27,16 @@ class Loan (models.Model):
     #repaid 'R', not repaid 'N', defaulted 'D'
     repayment_status = models.CharField(default='N', max_length=1, choices=REPAYMENT_STATUS_CHOICES)
     date_repaid = models.DateTimeField(blank=True)
+
+class UserProfile(models.Model):
+    GENDER_CHOICES = (
+        ('M', 'Male'),
+        ('F', 'Female'),
+    )
+    user = models.OneToOneField(User, related_name='profile', on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
+    dob = models.DateField()
+
+User.profile = property(lambda u: UserProfile.objects.get_or_create(user=u)[0])
