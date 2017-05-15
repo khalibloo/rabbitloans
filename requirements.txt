@@ -1,0 +1,11 @@
+django >=1.9, <2
+gunicorn
+dj-database-url
+psycopg2
+djangorestframework
+coreapi
+markdown
+django-filter
+django-crispy-forms
+django-guardian
+whitenoise
