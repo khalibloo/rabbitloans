@@ -27,16 +27,9 @@ SITE_ID = 1
 
 # Application definition
 INSTALLED_APPS = [
-    # The Django sites framework is required by allauth
-    #'django.contrib.sites',
-    # Allauth
-    #'allauth',
-    #'allauth.account',
-    #'allauth.socialaccount',
-    #'allauth.socialaccount.providers.facebook',
-    
     'loans',
     'rest_framework',
+    'rest_framework.authtoken',
 
     # Default
     'django.contrib.admin',

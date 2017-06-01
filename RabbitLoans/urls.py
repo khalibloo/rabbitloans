@@ -3,6 +3,7 @@ Definition of urls for RabbitLoans.
 """
 
 import django.contrib.auth.views
+from rest_framework.authtoken import views as tokenviews
 
 from django.conf.urls import url, include
 from loans import views
@@ -23,6 +24,7 @@ router.register(r'users', views.UserViewSet)
 # The API URLs are now determined automatically by the router.
 # Additionally, we include the login URLs for the browsable API.
 urlpatterns = [
+    url(r'^api-token-auth/', tokenviews.obtain_auth_token),
     url(r'^', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     # Example:
