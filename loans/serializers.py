@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Loan
+from .models import Loan, UserProfile
 from django.contrib.auth.models import User
 
 class LoanSerializer(serializers.HyperlinkedModelSerializer):
@@ -22,16 +22,26 @@ class LoanSerializer(serializers.HyperlinkedModelSerializer):
             'date_repaid',
         )
 
+class UserProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserProfile
+        fields = ('first_name', 'last_name', 'gender', 'dob')
+
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     #profile = serializers.HyperlinkedRelatedField(view_name='userprofile-detail', read_only=True)
-    first_name = serializers.CharField(source='profile.first_name')
-    last_name = serializers.CharField(source='profile.last_name')
-    gender = serializers.CharField(source='profile.gender')
-    dob = serializers.DateField(source='profile.dob')
+    profile = UserProfileSerializer()
     loans = serializers.HyperlinkedRelatedField(many=True, view_name='loan-detail', read_only=True)
 
     class Meta:
         model = User
-        fields = ('url', 'id', 'email', 'is_staff', 'first_name', 'last_name', 'gender', 'dob', 'loans')
+        fields = ('url', 'id', 'email', 'password', 'is_staff', 'profile', 'loans')
+        extra_kwargs = {'password': {'write_only': True}}
 
-
+    def create(self, validated_data):
+        profile_data = validated_data.pop('profile')
+        username = validated_data.get('email')
+        user = User.objects.create(username=username, **validated_data)
+        UserProfile.objects.create(user=user, **profile_data)
+        user.set_password(validated_data.get('password'))
+        user.save()
+        return user
