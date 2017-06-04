@@ -1,6 +1,7 @@
 from rest_framework.decorators import detail_route
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets, permissions, status
 from rest_framework.response import Response
+from django.db import IntegrityError
 from .models import Loan, UserProfile
 from .serializers import LoanSerializer, UserSerializer
 from .permissions import IsOwner, CreationAllowed
@@ -31,7 +32,7 @@ class UserViewSet(viewsets.ModelViewSet):
     """
     
     serializer_class = UserSerializer
-    permission_classes = ([permissions.IsAuthenticated, CreationAllowed])
+    permission_classes = ([CreationAllowed])
 
     def get_queryset(self):
         """
@@ -43,12 +44,14 @@ class UserViewSet(viewsets.ModelViewSet):
             return User.objects.all()
         else:
             return User.objects.filter(username=self.request.user.username)
+
+    def create(self, request, *args, **kwargs):
+        try:
+            return super(viewsets.ModelViewSet, self).create(request, *args, **kwargs)
+        except IntegrityError:
+            content = {'error': 'IntegrityError'}
+            return Response(content, status=status.HTTP_400_BAD_REQUEST)
     
-    #@detail_route(renderer_classes=[renderers.StaticHTMLRenderer])
-    @detail_route()
-    def me(self, request, *args, **kwargs):
-        me = self.get_object()
-        return Response(request.user)
 
 class MeViewSet(viewsets.ModelViewSet):
     """

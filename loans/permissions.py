@@ -17,7 +17,7 @@ class CreationAllowed(permissions.BasePermission):
 
     def has_object_permission(self, request, view, obj):
         #Anyone can create a user account
-        if request.method == 'PUT':
+        if request.method == 'POST':
             return True
         #Users can view and modify their own accounts
         if request.user == obj:
