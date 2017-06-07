@@ -20,6 +20,7 @@ router = DefaultRouter()
 router.register(r'loans', views.LoanViewSet)
 router.register(r'users', views.UserViewSet, 'user')
 router.register(r'me', views.MeViewSet, 'me')
+router.register(r'settings', views.LoanSettingsViewSet)
 
 # The API URLs are now determined automatically by the router.
 # Additionally, we include the login URLs for the browsable API.

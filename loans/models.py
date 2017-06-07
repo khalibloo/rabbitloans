@@ -6,7 +6,7 @@ from django.dispatch import receiver
 from rest_framework.authtoken.models import Token
 
 
-class Loan (models.Model):
+class Loan(models.Model):
     APPROVAL_STATUS_CHOICES = (
         ('A', 'Approved'),
         ('D', 'Denied'),
@@ -25,12 +25,19 @@ class Loan (models.Model):
     date_applied = models.DateTimeField()
     #approved 'A'| denied 'D'| pending 'P'
     approval_status = models.CharField(default='P', max_length=1, choices=APPROVAL_STATUS_CHOICES)
-    date_granted = models.DateTimeField(blank=True)
+    date_granted = models.DateTimeField(null=True, blank=True)
     repay_amount = models.FloatField()
-    date_due = models.DateTimeField(blank=True)
+    date_due = models.DateTimeField(null=True, blank=True)
     #repaid 'R'| not repaid 'N'| defaulted 'D'
     repayment_status = models.CharField(default='N', max_length=1, choices=REPAYMENT_STATUS_CHOICES)
-    date_repaid = models.DateTimeField(blank=True)
+    date_repaid = models.DateTimeField(null=True, blank=True)
+
+class LoanSettings(models.Model):
+    min_amount = models.FloatField()
+    max_amount = models.FloatField()
+    min_duration = models.IntegerField()
+    max_duration = models.IntegerField()
+    interest_rate = models.FloatField()
 
 class UserProfile(models.Model):
     GENDER_CHOICES = (
