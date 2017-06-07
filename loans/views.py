@@ -26,73 +26,6 @@ class LoanViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(customer=self.request.user)
 
-    # def create(self, request):
-    #     settings = LoanSettings.objects.first()
-    #     rate = settings.interest_rate
-    #     amount = request.data['amount']
-        #validate amount
-        # if amount < settings.min_amount:
-        #     return Response({
-        #         'status': 'Bad request',
-        #         'message': 'Amount below min allowed.'
-        #     }, status=status.HTTP_400_BAD_REQUEST)
-        # elif amount > settings.max_amount:
-        #     return Response({
-        #         'status': 'Bad request',
-        #         'message': 'Amount exceeds max allowed.'
-        #     }, status=status.HTTP_400_BAD_REQUEST)
-        #validate duration
-        #duration = request.data['duration']
-        # if duration < settings.min_duration:
-        #     return Response({
-        #         'status': 'Bad request',
-        #         'message': 'Duration below min allowed.'
-        #     }, status=status.HTTP_400_BAD_REQUEST)
-        # elif duration > settings.max_duration:
-        #     return Response({
-        #         'status': 'Bad request',
-        #         'message': 'Duration exceeds max allowed.'
-        #     }, status=status.HTTP_400_BAD_REQUEST)
-        # collateral = request.data['collateral_worth']
-        # #calculate the interest
-        # interest = 0
-        # cummulativeAmount = amount
-        # for i in range(0, duration):
-        #     annualInterest = cummulativeAmount * rate
-        #     interest += annualInterest
-        #     cummulativeAmount += annualInterest
-        
-        # #get repay amount
-        # repay_amount = amount + interest
-        # if collateral < repay_amount:
-        #     return Response({
-        #         'status': 'Bad request',
-        #         'message': 'Insufficient collateral.'
-        #     }, status=status.HTTP_400_BAD_REQUEST)
-        #get date due
-        # date_due = addYears(date.today(), duration)
-
-        # serializer = self.serializer_class(data=request.data)
-        # if serializer.is_valid():
-        #     serializer.save(
-        #         customer=self.request.user,
-        #         interest_rate=rate,
-        #         date_applied=date.today(),
-        #         approval_status='P',
-        #         repay_amount=amount+interest,
-        #         date_due=date_due,
-        #         repayment_status='N',
-        #         **request.data
-        #     )
-
-        #     return Response(
-        #         serializer.validated_data, status=status.HTTP_201_CREATED
-        #     )
-
-        # return Response({
-        #     'status': 'Bad request',
-        #     'message': 'Invalid data.'
-        # }, status=status.HTTP_400_BAD_REQUEST)
 
 class LoanSettingsViewSet(viewsets.ModelViewSet):
     """
@@ -107,7 +40,7 @@ class LoanSettingsViewSet(viewsets.ModelViewSet):
     #     # settings = LoanSettings.objects.first()
     #     # if settings is not None:
     #     #    return settings
-    #     return LoanSettings(id=1, **validated_data)
+    #     return LoanSettings.objects.create(id=1, **validated_data)
 
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -156,11 +89,3 @@ class MeViewSet(viewsets.ModelViewSet):
     def retrieve(self, request, *args, **kwargs):
         return Response(request.user)
 
-
-def addYears(d, years):
-    try:
-    #Return same day of the current year        
-        return d.replace(year = d.year + years)
-    except ValueError:
-    #If not same day, it will return other, i.e.  February 29 to March 1 etc.        
-        return d + (date(d.year + years, 1, 1) - date(d.year, 1, 1))
