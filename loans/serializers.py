@@ -37,6 +37,10 @@ class LoanSerializer(serializers.ModelSerializer):
         """
         settings = LoanSettings.objects.first()
         rate = settings.interest_rate
+
+        #if loan is being updated by admin using PATCH
+        if (self.context['request'].method == 'PATCH'):
+            return data
         #validate amount
         amount = data['amount']
         if amount < settings.min_amount:
